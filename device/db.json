@@ -1,33 +1,35 @@
-[
-  {
-    "id": 1,
-    "name": "Device 1",
-    "type": "lamp",
-    "controllerType": "iothub",
-    "duty": 89,
-    "enabled": true
-  },
-  {
-    "id": 2,
-    "name": "Device 2",
-    "type": "sensor",
-    "controllerType": "iothub",
-    "enabled": false
-  },
-  {
-    "id": 3,
-    "name": "Device 3",
-    "type": "lamp",
-    "controllerType": "iothub",
-    "duty": 0,
-    "enabled": false
-  },
-  {
-    "id": 4,
-    "name": "Device 4",
-    "type": "lamp",
-    "controllerType": "iothub",
-    "duty": 58,
-    "enabled": true
-  }
-]
+{
+  "devices": [
+    {
+      "id": 1,
+      "name": "Device 1",
+      "type": "lamp",
+      "controllerType": "iothub",
+      "duty": 89,
+      "enabled": true
+    },
+    {
+      "id": 2,
+      "name": "Device 2",
+      "type": "sensor",
+      "controllerType": "iothub",
+      "enabled": false
+    },
+    {
+      "id": 3,
+      "name": "Device 3",
+      "type": "lamp",
+      "controllerType": "iothub",
+      "duty": 0,
+      "enabled": false
+    },
+    {
+      "id": 4,
+      "name": "Device 4",
+      "type": "lamp",
+      "controllerType": "iothub",
+      "duty": 58,
+      "enabled": true
+    }
+  ]
+}

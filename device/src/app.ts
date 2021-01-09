@@ -1,3 +1,4 @@
+import axios from "axios";
 import express from "express";
 import { config } from "dotenv";
 import session from "express-session";
@@ -39,13 +40,38 @@ app.get("/api/devices", keycloak.protect(), (req, res) => {
         .status(500)
         .json({ ok: false, message: "internal server error" });
     }
-    return res.status(200).json(JSON.parse(devices));
+    return res.status(200).json(JSON.parse(devices).devices);
   });
 });
 
-app.use("*", function (req, res) {
+app.get("/api/telemetry", keycloak.protect(), async (_req, res) => {
+  const { data } = await axios.get("http://localhost:4001/telemetry");
+  res.status(200).json(data);
+});
+
+app.use("*", (_req, res) => {
   res.status(404).send("Not found!");
 });
+
+let id = 1;
+
+const sendTelemetry = async () => {
+  const sampleData = {
+    id,
+    deviceId: Math.floor(Math.random() * 4) + 1,
+    enabled: Math.random() > 0.5 ? true : false,
+    duty: Math.floor(Math.random() * 101),
+  };
+  const { data } = await axios.post(
+    "http://localhost:4001/telemetry",
+    sampleData
+  );
+  console.log(data);
+
+  id++;
+};
+
+setInterval(sendTelemetry, 60_000);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
