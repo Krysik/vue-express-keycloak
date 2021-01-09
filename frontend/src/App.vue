@@ -29,7 +29,6 @@ export default {
   }),
   mounted() {
     const token = sessionStorage.getItem("token");
-    console.log(token);
     axios
       .get("/api/devices", {
         headers: {
