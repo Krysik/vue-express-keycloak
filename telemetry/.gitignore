@@ -4,7 +4,7 @@
 
 ### Custom
 keycloak.json
-db.json
+database.json
 
 ### Node ###
 # Logs

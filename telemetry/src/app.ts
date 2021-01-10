@@ -54,6 +54,9 @@ app.post("/telemetry", keycloak.protect(), (req, res) => {
         return console.log(err);
       }
       console.log("saved successfully");
+      return res
+        .status(201)
+        .json({ ok: true, message: "Telemetry created successfully" });
     });
   });
 });
