@@ -26,6 +26,6 @@ Also frontend needs to be able to get data from backend apps with secure api cal
 
 ![Keycloak Telemetry Client](keycloak-app-telemetry.jpg "Keycloak Telemetry Client")
 
-### app-telemetry
+### app-frontend
 
 ![Keycloak Frontend Client](keycloak-app-frontend.jpg "Keycloak Frontend Client")
