@@ -5,7 +5,7 @@ import { keycloak } from "../services/keycloak";
 const router = express.Router();
 
 router.get("/", keycloak.protect(), (req, res) => {
-  fs.readFile("db.json", "utf8", (err, devices) => {
+  fs.readFile("database.json", "utf8", (err, devices) => {
     if (err) {
       console.log(err);
       return res

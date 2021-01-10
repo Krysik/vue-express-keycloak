@@ -28,7 +28,7 @@ app.use(
 );
 
 app.get("/telemetry", (req, res) => {
-  fs.readFile("db.json", "utf8", (err, telemetry) => {
+  fs.readFile("database.json", "utf8", (err, telemetry) => {
     if (err) {
       console.log(err);
       return res
@@ -41,7 +41,7 @@ app.get("/telemetry", (req, res) => {
 
 app.post("/telemetry", keycloak.protect(), (req, res) => {
   const telemetry = req.body;
-  fs.readFile("db.json", "utf8", (err, data) => {
+  fs.readFile("database.json", "utf8", (err, data) => {
     if (err) {
       return console.log(err);
     }
@@ -49,7 +49,7 @@ app.post("/telemetry", keycloak.protect(), (req, res) => {
     const telemetries = JSON.parse(data);
     telemetries.telemetries.push(telemetry);
 
-    fs.writeFile("db.json", JSON.stringify(telemetries), (err) => {
+    fs.writeFile("database.json", JSON.stringify(telemetries), (err) => {
       if (err) {
         return console.log(err);
       }
