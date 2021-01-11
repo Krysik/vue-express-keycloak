@@ -1,14 +1,12 @@
 import express from "express";
 import { config } from "dotenv";
 import fs from "fs";
-import Keycloak from "keycloak-connect";
-import session from "express-session";
+import session from 'express-session';
+import { keycloak, memoryStore } from './services/keycloak';
 
 config();
 
 const app = express();
-const memoryStore = new session.MemoryStore();
-const keycloak = new Keycloak({ store: memoryStore });
 
 app.use(express.json());
 app.use(
