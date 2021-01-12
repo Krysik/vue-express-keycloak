@@ -5,7 +5,7 @@ My attempt to integrate Vue with express secured with keycloak.
 The goal of this little project is to create proof of concept to authenticate each backend confidential application independently with keycloak and make secure api calls between them.
 In addition, frontend needs to be able to get data from backend apps using secure api calls.
 
-### How to run
+## How to run
 
 #### Keycloak setup
 
@@ -30,10 +30,6 @@ In addition, frontend needs to be able to get data from backend apps using secur
 
 ![Keycloak Frontend Client](keycloak-app-frontend.jpg "Keycloak Frontend Client")
 
-Applications device and telemetry require keycloak.json file, to get it you need to go to installation tab in client settings select 'Keycloak OIDS JSON' and click download.
-Save file in root directory of device and telemetry application.
-
-<!-- How to run apps, required env variables, commands etc. -->
 
 To run **device** app you need to do
 
