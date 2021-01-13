@@ -19,22 +19,22 @@ const KEYCLOAK_CLIENT_ID = process.env.KEYCLOAK_CLIENT_ID as string;
 const KEYCLOAK_REALM = process.env.KEYCLOAK_REALM as string;
 const KEYCLOAK_SECRET = process.env.KEYCLOAK_SECRET as string;
 
-const details = {
-  scope: "openid",
-};
+const SCOPE = "openid";
 
-export let Axios: AxiosInstance;
-export let token = "";
+export let Axios: AxiosInstance = axios.create();
+let token = "";
 let refreshToken = "";
-let defaultExpireTimeoutInSeconds = 300;
+let expireTimeoutInSeconds = 300;
 
-const useAuth = async (grantType: 'client_credentials' | 'refresh_token' = 'client_credentials') => {
+const useAuth = async (
+  grantType: "client_credentials" | "refresh_token" = "client_credentials"
+) => {
   try {
-    let body = `grant_type=${grantType}&scope=${details.scope}`;
-    if (grantType === 'refresh_token') {
+    let body = `grant_type=${grantType}&scope=${SCOPE}`;
+    if (grantType === "refresh_token") {
       body += `&refresh_token=${refreshToken}`;
     }
-    
+
     const { data } = await axios.post<KcResponse>(
       `${KEYCLOAK_SERVER_URL}/realms/${KEYCLOAK_REALM}/protocol/openid-connect/token`,
       body,
@@ -47,10 +47,10 @@ const useAuth = async (grantType: 'client_credentials' | 'refresh_token' = 'clie
         },
       }
     );
-    console.log("useAuth", data);
+    console.log("useAuth");
     refreshToken = data.refresh_token;
     token = data.access_token;
-    defaultExpireTimeoutInSeconds = data.expires_in;
+    expireTimeoutInSeconds = data.expires_in / 2;
   } catch (err) {
     console.log("useAuth error", err);
   }
@@ -59,14 +59,14 @@ const useAuth = async (grantType: 'client_credentials' | 'refresh_token' = 'clie
 export const initKeycloak = async () => {
   try {
     setInterval(async () => {
-      await useAuth('refresh_token');
+      await useAuth("refresh_token");
       Axios = axios.create({
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      })
-    }, (defaultExpireTimeoutInSeconds - 5) * 1000); // little before expiration time
-    await useAuth('client_credentials');
+      });
+    }, expireTimeoutInSeconds * 1000); // before expiration time
+    await useAuth("client_credentials");
     Axios = axios.create({
       headers: {
         Authorization: `Bearer ${token}`,
