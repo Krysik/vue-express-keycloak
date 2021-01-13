@@ -9,13 +9,7 @@ import telemetryRouter from "./routes/telemetries";
 config();
 const main = async () => {
   const app = express();
-  try {
-    await initKeycloak();
-  } catch (err) {
-    console.log("error during init keycloak");
-    console.log(err);
-  }
-
+  await initializeKeycloak();
   app.use(express.json());
   app.use(
     session({
@@ -48,6 +42,15 @@ const main = async () => {
   app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
   });
+};
+
+const initializeKeycloak = async () => {
+  try {
+    await initKeycloak();
+  } catch (err) {
+    console.log("error during init keycloak");
+    console.log(err);
+  }
 };
 
 main();
