@@ -9,7 +9,7 @@ import telemetryRouter from "./routes/telemetries";
 config();
 const main = async () => {
   const app = express();
-  await initializeKeycloak();
+  // await initializeKeycloak();
   app.use(express.json());
   app.use(
     session({

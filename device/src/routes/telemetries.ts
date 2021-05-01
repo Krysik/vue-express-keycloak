@@ -7,8 +7,8 @@ const router = express.Router();
 const TELEMETRY_URL = process.env.TELEMETRY_URL;
 
 router.get("/", keycloak.protect(), async (_req, res) => {
-  const { data } = await Axios.get(`${TELEMETRY_URL}/telemetry`);
-  res.status(200).json(data);
+  // const { data } = await Axios.get(`${TELEMETRY_URL}/telemetry`);
+  res.status(200).json({ ok: true });
 });
 
 let id = 1;
@@ -29,6 +29,6 @@ const sendTelemetry = async () => {
   }
 };
 
-setInterval(sendTelemetry, 60_000);
+// setInterval(sendTelemetry, 60_000);
 
 export default router;
